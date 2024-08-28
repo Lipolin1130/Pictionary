@@ -21,3 +21,6 @@ var everydayObjects: [String] = [
 ]
 
 let maxTimeRemaing = 100 // 一局的時間
+
+
+// Test git 
