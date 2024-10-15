@@ -21,6 +21,15 @@ struct StartView: View {
     var body: some View {
         NavigationStack {
             VStack {
+            
+                HStack {
+                    Image(systemName: "pencil.and.scribble")
+                        .font(.system(size: 35))
+                    
+                    Text("Buddy Battle")
+                        .font(.custom(customFont, size: 35))
+                }
+                
                 if startSearching {
                     MPPeersView(startGame: $startGame)
                         .environmentObject(connectionManager)
@@ -44,7 +53,6 @@ struct StartView: View {
                 }
             }
             .padding()
-            .navigationTitle("Pictionary")
         }
         .fullScreenCover(isPresented: $startGame) {
             GameView()

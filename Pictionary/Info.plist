@@ -6,5 +6,9 @@
 	<array>
 		<string>_Pictionary._tcp</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>TherenRegular-vmrnE.ttf</string>
+	</array>
 </dict>
 </plist>

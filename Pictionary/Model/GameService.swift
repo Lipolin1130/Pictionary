@@ -41,10 +41,10 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
         let transData = TransData(type: .gameStart, payload: Data(), sender: mainPlayer.name)
         connectionManager.send(transData: transData)
         
-        if AudioManager.shared.isPlaying {
+        if AudioManager.shared.isBackgroundPlaying {
             pauseMusic()
         } else {
-            playMusic()
+            playBackgroundMusic(name: Audio.backgroundMusic.rawValue)
         }
     }
     
@@ -60,12 +60,16 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
         pauseMusic()
     }
     
-    func playMusic() {
-        AudioManager.shared.playSound(named: "BackgroundMusic")
+    func playBackgroundMusic(name: String) {
+        AudioManager.shared.playBackgroundSound(named: name)
     }
     
     func pauseMusic() {
-        AudioManager.shared.stopSound()
+        AudioManager.shared.stopBackgroundSound()
+    }
+    
+    func playCorrectSound(name: String) {
+        AudioManager.shared.playSoundEffect(named: name)
     }
     
     nonisolated func didReceivedGameStart() {
@@ -95,6 +99,8 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
         DispatchQueue.main.async {
             do {
                 if let status = guessData.isCorrect {// Check answer
+                    
+                    self.playCorrectSound(name: Audio.correctSound.rawValue)// play correct sound
                     if status {
                         self.swapRoles()
                     }

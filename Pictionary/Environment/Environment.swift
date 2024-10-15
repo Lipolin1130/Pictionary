@@ -22,3 +22,10 @@ var everydayObjects: [String] = [
 let maxTimeRemaing = 100 // 一局的時間
 
 var coutdownTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
+var customFont: String = "THEREN Trial"
+
+enum Audio: String {
+    case backgroundMusic = "BackgroundMusic"
+    case correctSound = "CorrectSound"
+}

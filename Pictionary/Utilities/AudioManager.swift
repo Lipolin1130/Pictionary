@@ -11,42 +11,54 @@ import Foundation
 class AudioManager {
     static let shared = AudioManager()
     
-    var audioPlayer: AVAudioPlayer?
-    var isPlaying: Bool {
-        return audioPlayer?.isPlaying ?? false
-    }
-    var playbackPosition: TimeInterval = 0
+    private var backgroundPlayer: AVAudioPlayer?
+    private var soundEffectPlayer: AVAudioPlayer?
     
-    func playSound(named name: String) {
+    var isBackgroundPlaying: Bool {
+        return backgroundPlayer?.isPlaying ?? false
+    }
+    
+    var isSoundEffectPlaying: Bool {
+        return soundEffectPlayer?.isPlaying ?? false
+    }
+    private var backgroundPlaybackPosition: TimeInterval = 0
+    
+    private func playSound(named name: String, using player: inout AVAudioPlayer?) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "mp3") else {
             print("Sound file not found")
             return
         }
         
         do {
-            if audioPlayer == nil || !isPlaying {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.currentTime = playbackPosition
-                audioPlayer?.prepareToPlay()
-                audioPlayer?.play()
+            if player == nil || !(player?.isPlaying ?? false) {
+                player = try AVAudioPlayer(contentsOf: url)
+                player?.prepareToPlay()
+                player?.play()
             } else {
-                print("Sound is already playing")
+                print("Sound \(name) is already playing")
             }
         } catch {
             print("Error playing sound: \(error.localizedDescription)")
         }
     }
     
-    func stopSound() {
-        if let player = audioPlayer {
-            playbackPosition = player.currentTime
+    func playBackgroundSound(named name: String) {
+        playSound(named: name, using: &backgroundPlayer)
+    }
+    
+    func playSoundEffect(named name: String) {
+        playSound(named: name, using: &soundEffectPlayer)
+    }
+    
+    func stopBackgroundSound() {
+        if let player = backgroundPlayer {
+            backgroundPlaybackPosition = player.currentTime
             player.stop()
-            audioPlayer = nil
-            clear()
+            backgroundPlayer = nil
         }
     }
     
     func clear() {
-        playbackPosition = 0
+        backgroundPlaybackPosition = 0
     }
 }
