@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D00C430E2CBE1522002CD0CC /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00C430D2CBE1518002CD0CC /* AudioManager.swift */; };
+		D00C43102CBE3C24002CD0CC /* BackgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D00C430F2CBE3C24002CD0CC /* BackgroundMusic.mp3 */; };
 		D028584C2C743DDB009D73D4 /* PictionaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D028584B2C743DDB009D73D4 /* PictionaryApp.swift */; };
 		D02858502C743DDC009D73D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D028584F2C743DDC009D73D4 /* Assets.xcassets */; };
 		D02858532C743DDC009D73D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D02858522C743DDC009D73D4 /* Preview Assets.xcassets */; };
@@ -16,7 +18,7 @@
 		D02858702C7445B7009D73D4 /* MPPeersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D028586F2C7445B7009D73D4 /* MPPeersView.swift */; };
 		D02858722C744945009D73D4 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02858712C744945009D73D4 /* GameView.swift */; };
 		D02858742C74700A009D73D4 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02858732C74700A009D73D4 /* GameOverView.swift */; };
-		D02858772C7472ED009D73D4 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02858762C7472ED009D73D4 /* Data.swift */; };
+		D02858772C7472ED009D73D4 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02858762C7472ED009D73D4 /* Environment.swift */; };
 		D08C552E2C758D5E003DF99F /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C552D2C758D5E003DF99F /* DrawingView.swift */; };
 		D08C55302C759C83003DF99F /* TransData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C552F2C759C83003DF99F /* TransData.swift */; };
 		D08C55322C759E3A003DF99F /* GuessData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C55312C759E3A003DF99F /* GuessData.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D00C430D2CBE1518002CD0CC /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		D00C430F2CBE3C24002CD0CC /* BackgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BackgroundMusic.mp3; sourceTree = "<group>"; };
 		D02858482C743DDB009D73D4 /* Pictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pictionary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D028584B2C743DDB009D73D4 /* PictionaryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictionaryApp.swift; sourceTree = "<group>"; };
 		D028584F2C743DDC009D73D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -40,7 +44,7 @@
 		D028586F2C7445B7009D73D4 /* MPPeersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPPeersView.swift; sourceTree = "<group>"; };
 		D02858712C744945009D73D4 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		D02858732C74700A009D73D4 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
-		D02858762C7472ED009D73D4 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		D02858762C7472ED009D73D4 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		D08C552D2C758D5E003DF99F /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
 		D08C552F2C759C83003DF99F /* TransData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransData.swift; sourceTree = "<group>"; };
 		D08C55312C759E3A003DF99F /* GuessData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuessData.swift; sourceTree = "<group>"; };
@@ -63,6 +67,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D00C430C2CBE150B002CD0CC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D00C430D2CBE1518002CD0CC /* AudioManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		D028583F2C743DDB009D73D4 = {
 			isa = PBXGroup;
 			children = (
@@ -85,7 +97,8 @@
 				D02858592C743E12009D73D4 /* Info.plist */,
 				D02858662C743EC0009D73D4 /* View */,
 				D028585A2C743E54009D73D4 /* Model */,
-				D02858752C7472E1009D73D4 /* Data */,
+				D02858752C7472E1009D73D4 /* Environment */,
+				D00C430C2CBE150B002CD0CC /* Utilities */,
 				D028584B2C743DDB009D73D4 /* PictionaryApp.swift */,
 				D028584F2C743DDC009D73D4 /* Assets.xcassets */,
 				D02858512C743DDC009D73D4 /* Preview Content */,
@@ -127,12 +140,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		D02858752C7472E1009D73D4 /* Data */ = {
+		D02858752C7472E1009D73D4 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
-				D02858762C7472ED009D73D4 /* Data.swift */,
+				D00C430F2CBE3C24002CD0CC /* BackgroundMusic.mp3 */,
+				D02858762C7472ED009D73D4 /* Environment.swift */,
 			);
-			path = Data;
+			path = Environment;
 			sourceTree = "<group>";
 		};
 		D08C55352C788217003DF99F /* MultipeerConnectivity */ = {
@@ -214,6 +228,7 @@
 			files = (
 				D02858532C743DDC009D73D4 /* Preview Assets.xcassets in Resources */,
 				D02858502C743DDC009D73D4 /* Assets.xcassets in Resources */,
+				D00C43102CBE3C24002CD0CC /* BackgroundMusic.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D00C430E2CBE1522002CD0CC /* AudioManager.swift in Sources */,
 				D08C55302C759C83003DF99F /* TransData.swift in Sources */,
 				D028586C2C74410B009D73D4 /* StartView.swift in Sources */,
 				D02858742C74700A009D73D4 /* GameOverView.swift in Sources */,
@@ -232,7 +248,7 @@
 				D08C55342C759E4B003DF99F /* Player.swift in Sources */,
 				D02858682C743EE1009D73D4 /* GameService.swift in Sources */,
 				D02858722C744945009D73D4 /* GameView.swift in Sources */,
-				D02858772C7472ED009D73D4 /* Data.swift in Sources */,
+				D02858772C7472ED009D73D4 /* Environment.swift in Sources */,
 				D08C55402C788B5E003DF99F /* DrawData.swift in Sources */,
 				D08C553E2C7882C6003DF99F /* MPCNearbyServiceAdvertiserDelegate.swift in Sources */,
 				D08C553C2C7882AD003DF99F /* MPCNearbyServiceBrowserDelegate.swift in Sources */,

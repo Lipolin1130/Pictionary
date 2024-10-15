@@ -23,7 +23,6 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
     @Published var score = 0 // Score
     @Published var remainingTime = maxTimeRemaing { // remain Time after countdown
         willSet {
-//            if isTimeKeeper { } /* sendString() */
             if newValue < 0 { gameOver() }
         }
     }
@@ -36,9 +35,17 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
         self.inGame = true
         self.isGameOver = false
         self.drawPrompt = everydayObjects.randomElement()!
+        self.isTimeKeeper = true
+        self.remainingTime = maxTimeRemaing
+        
         let transData = TransData(type: .gameStart, payload: Data(), sender: mainPlayer.name)
         connectionManager.send(transData: transData)
-        self.isTimeKeeper = true
+        
+        if AudioManager.shared.isPlaying {
+            pauseMusic()
+        } else {
+            playMusic()
+        }
     }
     
     func swapRoles() {
@@ -50,6 +57,15 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
     
     func gameOver() {
         isGameOver = true
+        pauseMusic()
+    }
+    
+    func playMusic() {
+        AudioManager.shared.playSound(named: "BackgroundMusic")
+    }
+    
+    func pauseMusic() {
+        AudioManager.shared.stopSound()
     }
     
     nonisolated func didReceivedGameStart() {
@@ -78,7 +94,6 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
     nonisolated func didReceivedGuessData(_ guessData: GuessData) {
         DispatchQueue.main.async {
             do {
-                
                 if let status = guessData.isCorrect {// Check answer
                     if status {
                         self.swapRoles()

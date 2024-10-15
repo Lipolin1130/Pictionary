@@ -2,7 +2,7 @@
 //  StartView.swift
 //  Pictionary
 //
-
+//TODO: change this Page UI
 
 import SwiftUI
 
@@ -26,8 +26,6 @@ struct StartView: View {
                         .environmentObject(connectionManager)
                         .environmentObject(gameService)
                         .frame(width: 350)
-                } else {
-                    
                 }
                 
                 Spacer()

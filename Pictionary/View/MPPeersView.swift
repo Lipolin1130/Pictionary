@@ -2,6 +2,7 @@
 //  MCPeersVIew.swift
 //  Pictionary
 //
+//TODO: change this Page UI
 
 import SwiftUI
 

@@ -2,7 +2,7 @@
 //  SetNameVIew.swift
 //  Pictionary
 //
-
+//TODO: change this Page UI
 
 import SwiftUI
 
@@ -12,11 +12,12 @@ struct NameView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("This is the name that will be associated with this device.")
+            VStack(spacing: 20) {
                 
                 TextField("Your Name", text: $userName)
                     .textFieldStyle(.roundedBorder)
+                
+                Text("This is the name that will be associated with this device.")
                 
                 Button("Set") {
                     yourName = userName
@@ -27,7 +28,7 @@ struct NameView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle("Pictionary")
+            .navigationTitle("Buddy Battle")
         }
     }
 }

@@ -8,7 +8,6 @@ import SwiftUI
 import PencilKit
 
 struct DrawingView: UIViewRepresentable {
-//    @EnvironmentObject var connectionManager: MPConnectionManager
     @EnvironmentObject var gameService: GameService
     @Binding var eraserEnabled: Bool
     
@@ -27,17 +26,13 @@ struct DrawingView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-//        Coordinator(connectionManager: connectionManager)
         Coordinator(gameService: gameService)
     }
     
     class Coordinator: NSObject, PKCanvasViewDelegate {
-//        var connectionManager: MPConnectionManager
+
         var gameService: GameService
         
-//        init(connectionManager: MPConnectionManager) {
-//            self.connectionManager = connectionManager
-//        }
         init(gameService: GameService) {
             self.gameService = gameService
         }
