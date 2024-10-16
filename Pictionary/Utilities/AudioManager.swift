@@ -2,8 +2,7 @@
 //  Audio.swift
 //  Pictionary
 //
-//  Created by 李柏霖 on 2024/10/15.
-//
+
 
 import AVFoundation
 import Foundation
