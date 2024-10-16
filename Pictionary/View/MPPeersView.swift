@@ -12,40 +12,60 @@ struct MPPeersView: View {
     @Binding var startGame: Bool
     
     var body: some View {
-        VStack{
-            Text("Available Players")
-            
-            Text("Your Name: \(connectionManager.myPeerId.displayName)")
-            
-            List(connectionManager.availablePeers, id: \.self) {peer in
-                HStack {
-                    Text(peer.displayName)
-                    
-                    Spacer()
-                    
-                    Button("Select") {
-                        connectionManager.nearbyServiceBrowser.invitePeer(peer, to: connectionManager.session, withContext: nil, timeout: 15)
-                        gameService.mainPlayer.name = connectionManager.myPeerId.displayName
-                        gameService.otherPlayer.name = peer.displayName
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-            }
-            .alert("Received Invitation from \(connectionManager.receivedInviteFrom?.displayName ?? "Unknown")", isPresented: $connectionManager.receivedInvite) {
-                Button("Accept", role: .destructive) {
-                    if let invitationHandler = connectionManager.invitationHandler {
-                        invitationHandler(true, connectionManager.session)
-                        
-                        gameService.mainPlayer.name = connectionManager.myPeerId.displayName
-                        gameService.mainPlayer.gamePiece = GamePiece.draw
-                        gameService.otherPlayer.name = connectionManager.receivedInviteFrom?.displayName ?? "Unknown"
-                        gameService.otherPlayer.gamePiece = GamePiece.guess
-                    }
-                }
+        ZStack {
+            VStack(spacing: 20){
                 
-                Button("Reject", role: .cancel) {
-                    if let invitationHandler = connectionManager.invitationHandler {
-                        invitationHandler(false, nil)
+                HStack {
+                    Text("Hello")
+                    
+                    Text(connectionManager.myPeerId.displayName)
+                        .foregroundStyle(.blue)
+                }
+                .font(.custom(customFont, size: 20))
+                
+                Text("Available Players")
+                    .fontWeight(.semibold)
+                
+                if connectionManager.availablePeers.isEmpty {
+                    Image(systemName: "dot.radiowaves.left.and.right")
+                        .font(.largeTitle)
+                        .symbolRenderingMode(.hierarchical)
+                        .foregroundStyle(.blue)
+                        .symbolEffect(.variableColor.cumulative.dimInactiveLayers.nonReversing)
+                }
+                List {
+                    ForEach(connectionManager.availablePeers, id: \.self) {peer in
+                        HStack {
+                            Text(peer.displayName)
+                            
+                            Spacer()
+                            
+                            Button("Select") {
+                                connectionManager.nearbyServiceBrowser.invitePeer(peer, to: connectionManager.session, withContext: nil, timeout: 15)
+                                gameService.mainPlayer.name = connectionManager.myPeerId.displayName
+                                gameService.otherPlayer.name = peer.displayName
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+                        .padding(.horizontal, 25)
+                    }
+                }
+                .alert("Received Invitation from \(connectionManager.receivedInviteFrom?.displayName ?? "Unknown")", isPresented: $connectionManager.receivedInvite) {
+                    Button("Accept", role: .destructive) {
+                        if let invitationHandler = connectionManager.invitationHandler {
+                            invitationHandler(true, connectionManager.session)
+                            
+                            gameService.mainPlayer.name = connectionManager.myPeerId.displayName
+                            gameService.mainPlayer.gamePiece = GamePiece.draw
+                            gameService.otherPlayer.name = connectionManager.receivedInviteFrom?.displayName ?? "Unknown"
+                            gameService.otherPlayer.gamePiece = GamePiece.guess
+                        }
+                    }
+                    
+                    Button("Reject", role: .cancel) {
+                        if let invitationHandler = connectionManager.invitationHandler {
+                            invitationHandler(false, nil)
+                        }
                     }
                 }
             }

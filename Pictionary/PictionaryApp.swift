@@ -13,12 +13,8 @@ struct PictionaryApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if yourName.isEmpty {
-                NameView()
-            } else {
-                StartView(yourName: yourName)
-                    .environmentObject(gameService)
-            }
+            StartView(yourName: yourName)
+                .environmentObject(gameService)
         }
     }
 }

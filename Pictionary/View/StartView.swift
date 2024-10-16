@@ -8,20 +8,17 @@ import SwiftUI
 
 struct StartView: View {
     @EnvironmentObject var gameService: GameService
-    @StateObject var connectionManager: MPConnectionManager
+    @State var connectionManager: MPConnectionManager? = nil
     @AppStorage("yourName") var yourName = ""
     
     @State private var startGame: Bool = false
-    @State private var startSearching = false
-    
-    init(yourName: String) {
-        _connectionManager = StateObject(wrappedValue: MPConnectionManager(yourName: yourName))
-    }
+    @State private var startSearching: Bool = false
+    @State private var tempName: String = ""
+    @State private var showSheet: Bool = false
     
     var body: some View {
         NavigationStack {
             VStack {
-            
                 HStack {
                     Image(systemName: "pencil.and.scribble")
                         .font(.system(size: 35))
@@ -29,35 +26,91 @@ struct StartView: View {
                     Text("Buddy Battle")
                         .font(.custom(customFont, size: 35))
                 }
+                .padding(.bottom, 40)
+                
                 
                 if startSearching {
-                    MPPeersView(startGame: $startGame)
-                        .environmentObject(connectionManager)
-                        .environmentObject(gameService)
-                        .frame(width: 350)
+                    if let connectionManager = connectionManager {
+                        MPPeersView(startGame: $startGame)
+                            .environmentObject(connectionManager)
+                            .environmentObject(gameService)
+                            .frame(width: 350)
+                    }
                 }
                 
                 Spacer()
                 
                 Button {
-                    startSearching.toggle()
+                    withAnimation(.linear) {
+                        if !yourName.isEmpty {
+                            startSearching.toggle()
+                        } else {
+                            showSheet = true
+                        }
+                    }
                 } label: {
-                    Text(startSearching ? "Cancle" : "Searching Opponent")
-                }
-                .buttonStyle(.borderedProminent)
-                
-                if !startSearching {
-                    Text("Searching other device use network...")
-                        .font(.headline.weight(.semibold))
-                        .foregroundStyle(Color("primaryYellow"))
+                    Text(startSearching ? "Cancle" : "Start Game")
+                        .fontWeight(.semibold)
+                        .font(.custom(customFont, size: 25))
+                        .padding(15)
+                        .background(startSearching ? .red : .blue)
+                        .cornerRadius(10)
+                        .padding(10)
+                        .foregroundStyle(.white)
                 }
             }
             .padding()
         }
-        .fullScreenCover(isPresented: $startGame) {
-            GameView()
-                .environmentObject(connectionManager)
+        .onAppear {
+            if yourName.isEmpty {
+                showSheet = true
+            } else {
+                initializeConnectionManager()
+            }
         }
+        .sheet(isPresented: $showSheet) {
+            VStack(spacing: 20) {
+                Text("We need your name to play")
+                    .font(.title)
+                    .bold()
+                    .padding()
+                
+                Text("This is the name that will be associated with this device.")
+                    .font(.subheadline)
+                
+                TextField("Your Name", text: $tempName)
+                    .textFieldStyle(.roundedBorder)
+                    .padding()
+                
+                HStack {
+                    Button("Cancel", role: .destructive) {
+                        showSheet = false
+                    }
+                    .padding()
+                    
+                    Button("OK") {
+                        yourName = tempName
+                        showSheet = false
+                    }
+                    .disabled(tempName.isEmpty)
+                    .padding()
+                    
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            .presentationDetents([.height(350), .medium])
+            .presentationDragIndicator(.hidden)
+        }
+        .fullScreenCover(isPresented: $startGame) {
+            if let connectionManager = connectionManager {
+                GameView()
+                    .environmentObject(connectionManager)
+            }
+        }
+    }
+    
+    private func initializeConnectionManager() {
+        connectionManager = MPConnectionManager(yourName: yourName)
     }
 }
 
