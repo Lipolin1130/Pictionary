@@ -32,6 +32,8 @@ class AudioManager {
         do {
             if player == nil || !(player?.isPlaying ?? false) {
                 player = try AVAudioPlayer(contentsOf: url)
+                player?.enableRate = true
+                player?.rate = 1.0
                 player?.prepareToPlay()
                 player?.play()
             } else {
@@ -39,6 +41,16 @@ class AudioManager {
             }
         } catch {
             print("Error playing sound: \(error.localizedDescription)")
+        }
+    }
+    
+    func adjustBackgroundSoundRate(to rate: Float) {
+        if let player = backgroundPlayer {
+            print("adjustBackgroundSoundRate: \(rate)")
+            player.enableRate = true
+            player.rate = rate
+        } else {
+            
         }
     }
     

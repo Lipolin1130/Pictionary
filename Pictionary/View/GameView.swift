@@ -109,11 +109,14 @@ struct GameView: View {
                     .bold()
                     .font(.title2)
                     .foregroundStyle(Color(gameService.mainPlayer.currentlyDrawing ? "primaryYellow" : "primaryPurple"))
+                    .symbolEffect(.bounce, value: gameService.remainingTime)
             }
+            
             
             Text("Score: \(gameService.score)")
                 .bold()
                 .font(.title)
+                .font(.custom(customFont, size: 35))
                 .foregroundStyle(Color(gameService.mainPlayer.currentlyDrawing ? "primaryYellow": "primaryPurple"))
         }
     }//TODO: component to another file

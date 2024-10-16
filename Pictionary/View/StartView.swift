@@ -18,48 +18,67 @@ struct StartView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                HStack {
-                    Image(systemName: "pencil.and.scribble")
-                        .font(.system(size: 35))
+            ZStack {
+                Color.purple.ignoresSafeArea()
+                    .opacity(0.4)
+                
+                VStack {
                     
-                    Text("Buddy Battle")
-                        .font(.custom(customFont, size: 35))
-                }
-                .padding(.bottom, 40)
-                
-                
-                if startSearching {
-                    if let connectionManager = connectionManager {
-                        MPPeersView(startGame: $startGame)
-                            .environmentObject(connectionManager)
-                            .environmentObject(gameService)
-                            .frame(width: 350)
-                    }
-                }
-                
-                Spacer()
-                
-                Button {
-                    withAnimation(.linear) {
-                        if !yourName.isEmpty {
-                            startSearching.toggle()
-                        } else {
-                            showSheet = true
+                    if startSearching {
+                        HStack {
+                            Image(systemName: "pencil.and.scribble")
+                                .font(.system(size: 30))
+                            
+                            Text("Buddy Battle")
+                                .font(.custom(customFont, size: 30))
+                            
+                            Image(systemName: "flag.checkered.2.crossed")
+                                .font(.system(size: 30))
                         }
+                        .padding(.bottom, 40)
+                        
+                        if let connectionManager = connectionManager {
+                            MPPeersView(startGame: $startGame)
+                                .environmentObject(connectionManager)
+                                .environmentObject(gameService)
+                                .frame(width: 350)
+                        }
+                    } else {
+                        Spacer()
+                        
+                        Text("Buddy\nBattle")
+                            .font(.custom(customFont, size: 70))
+                        
+                        HStack {
+                            Image(systemName: "pencil.and.scribble")
+                            Image(systemName: "flag.checkered.2.crossed")
+                        }
+                        .font(.system(size: 50))
                     }
-                } label: {
-                    Text(startSearching ? "Cancle" : "Start Game")
-                        .fontWeight(.semibold)
-                        .font(.custom(customFont, size: 25))
-                        .padding(15)
-                        .background(startSearching ? .red : .blue)
-                        .cornerRadius(10)
-                        .padding(10)
-                        .foregroundStyle(.white)
+                    
+                    Spacer()
+                    
+                    Button {
+                        withAnimation(.linear(duration: 0.5)) {
+                            if !yourName.isEmpty {
+                                startSearching.toggle()
+                            } else {
+                                showSheet = true
+                            }
+                        }
+                    } label: {
+                        Text(startSearching ? "Cancle" : "Start Game")
+                            .fontWeight(.semibold)
+                            .font(.custom(customFont, size: 25))
+                            .padding(15)
+                            .background(startSearching ? .red.opacity(0.7) : Color.cyan)
+                            .cornerRadius(10)
+                            .padding(10)
+                            .foregroundStyle(.white)
+                    }
                 }
+                .padding()
             }
-            .padding()
         }
         .onAppear {
             if yourName.isEmpty {
@@ -67,6 +86,9 @@ struct StartView: View {
             } else {
                 initializeConnectionManager()
             }
+        }
+        .onChange(of: yourName) {
+            initializeConnectionManager()
         }
         .sheet(isPresented: $showSheet) {
             VStack(spacing: 20) {

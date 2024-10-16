@@ -24,6 +24,8 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
     @Published var remainingTime = maxTimeRemaing { // remain Time after countdown
         willSet {
             if newValue < 0 { gameOver() }
+            
+            if newValue == 30 { adjustBackgroundMusic(rate: 1.25) }
         }
     }
     @Published var lastReceivedDrawing = PKDrawing()
@@ -44,7 +46,9 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
         if AudioManager.shared.isBackgroundPlaying {
             pauseMusic()
         } else {
-            playBackgroundMusic(name: Audio.backgroundMusic.rawValue)
+            if connectionManager.paired {
+                playBackgroundMusic(name: Audio.backgroundMusic.rawValue)
+            }
         }
     }
     
@@ -58,6 +62,7 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
     func gameOver() {
         isGameOver = true
         pauseMusic()
+        pastGuesses = []
     }
     
     func playBackgroundMusic(name: String) {
@@ -66,6 +71,11 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
     
     func pauseMusic() {
         AudioManager.shared.stopBackgroundSound()
+        print("pause music")
+    }
+    
+    func adjustBackgroundMusic(rate: Float) {
+        AudioManager.shared.adjustBackgroundSoundRate(to: rate)
     }
     
     func playCorrectSound(name: String) {

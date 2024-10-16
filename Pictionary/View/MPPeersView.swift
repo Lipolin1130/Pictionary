@@ -25,6 +25,7 @@ struct MPPeersView: View {
                 
                 Text("Available Players")
                     .fontWeight(.semibold)
+                    .font(.custom(customFont, size: 15))
                 
                 if connectionManager.availablePeers.isEmpty {
                     Image(systemName: "dot.radiowaves.left.and.right")
@@ -33,22 +34,29 @@ struct MPPeersView: View {
                         .foregroundStyle(.blue)
                         .symbolEffect(.variableColor.cumulative.dimInactiveLayers.nonReversing)
                 }
-                List {
-                    ForEach(connectionManager.availablePeers, id: \.self) {peer in
-                        HStack {
-                            Text(peer.displayName)
-                            
-                            Spacer()
-                            
-                            Button("Select") {
-                                connectionManager.nearbyServiceBrowser.invitePeer(peer, to: connectionManager.session, withContext: nil, timeout: 15)
-                                gameService.mainPlayer.name = connectionManager.myPeerId.displayName
-                                gameService.otherPlayer.name = peer.displayName
-                            }
-                            .buttonStyle(.borderedProminent)
+                ForEach(connectionManager.availablePeers, id: \.self) {peer in
+                    HStack {
+                        
+                        Image(systemName: "person.fill")
+                        
+                        Text(peer.displayName)
+                        
+                        Spacer()
+                        
+                        Button {
+                            connectionManager.nearbyServiceBrowser.invitePeer(peer, to: connectionManager.session, withContext: nil, timeout: 15)
+                            gameService.mainPlayer.name = connectionManager.myPeerId.displayName
+                            gameService.otherPlayer.name = peer.displayName
+                        } label: {
+                            Text("Connect")
+                                .padding(7)
+                                .background(.cyan)
+                                .foregroundStyle(.white)
+                                .cornerRadius(5)
                         }
-                        .padding(.horizontal, 25)
                     }
+                    .font(.custom(customFont, size: 15))
+                    .padding(.horizontal, 25)
                 }
                 .alert("Received Invitation from \(connectionManager.receivedInviteFrom?.displayName ?? "Unknown")", isPresented: $connectionManager.receivedInvite) {
                     Button("Accept", role: .destructive) {

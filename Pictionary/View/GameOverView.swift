@@ -13,11 +13,10 @@ struct GameOverView: View {
         VStack {
             Spacer()
             
-            Image("gameOver")
-                .resizable()
-                .scaledToFit()
-                .padding(.horizontal, 70)
-                .padding(.vertical)
+            Text("Game\nOver")
+                .font(.custom(customFont, size: 100))
+                .foregroundStyle(.primaryYellow)
+                .multilineTextAlignment(.center)
             
             Text("Score: \(gameService.score)")
                 .font(.largeTitle)
@@ -32,7 +31,7 @@ struct GameOverView: View {
                 Text("Menu")
                     .foregroundStyle(Color("menuBtn"))
                     .brightness(-0.4)
-                    .font(.largeTitle)
+                    .font(.custom(customFont, size: 40))
                     .bold()
             }
             .padding()
