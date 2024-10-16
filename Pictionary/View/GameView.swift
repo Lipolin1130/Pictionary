@@ -206,7 +206,7 @@ struct GameView: View {
             .opacity(0.5)
             .brightness(-0.2)
         )
-    }//TODO: component to another file
+    }
 }
 
 #Preview {

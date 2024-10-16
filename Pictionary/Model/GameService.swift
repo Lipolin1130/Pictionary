@@ -111,6 +111,7 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
                 if let status = guessData.isCorrect {// Check answer
                     
                     self.playCorrectSound(name: Audio.correctSound.rawValue)// play correct sound
+                    
                     if status {
                         self.swapRoles()
                     }
@@ -143,8 +144,6 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
                         self.swapRoles()
                     }
                 }
-            } catch {
-                print("Error processing guess data: \(error)")
             }
         }
     }
