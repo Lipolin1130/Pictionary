@@ -69,14 +69,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D00C430C2CBE150B002CD0CC /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				D00C430D2CBE1518002CD0CC /* AudioManager.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
 		D028583F2C743DDB009D73D4 = {
 			isa = PBXGroup;
 			children = (
@@ -97,10 +89,10 @@
 			isa = PBXGroup;
 			children = (
 				D02858592C743E12009D73D4 /* Info.plist */,
-				D02858662C743EC0009D73D4 /* View */,
 				D028585A2C743E54009D73D4 /* Model */,
+				D02858662C743EC0009D73D4 /* View */,
+				D09904102CC145B100858692 /* Controller */,
 				D02858752C7472E1009D73D4 /* Environment */,
-				D00C430C2CBE150B002CD0CC /* Utilities */,
 				D028584B2C743DDB009D73D4 /* PictionaryApp.swift */,
 				D028584F2C743DDC009D73D4 /* Assets.xcassets */,
 				D02858512C743DDC009D73D4 /* Preview Content */,
@@ -119,12 +111,10 @@
 		D028585A2C743E54009D73D4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D02858672C743EE1009D73D4 /* GameService.swift */,
 				D08C552F2C759C83003DF99F /* TransData.swift */,
 				D08C55312C759E3A003DF99F /* GuessData.swift */,
 				D08C55332C759E4B003DF99F /* Player.swift */,
 				D08C553F2C788B5E003DF99F /* DrawData.swift */,
-				D08C55352C788217003DF99F /* MultipeerConnectivity */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -169,6 +159,16 @@
 				D08C553D2C7882C6003DF99F /* MPCNearbyServiceAdvertiserDelegate.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		D09904102CC145B100858692 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D00C430D2CBE1518002CD0CC /* AudioManager.swift */,
+				D02858672C743EE1009D73D4 /* GameService.swift */,
+				D08C55352C788217003DF99F /* MultipeerConnectivity */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

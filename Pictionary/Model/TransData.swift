@@ -34,7 +34,7 @@ extension TransData {
 
 /**
  // 假設已接收到一個 TransData 的 JSON 資料並解碼成 transData
- let receivedTransData: TransData = // 這是接收後解碼的 TransData
+ let receivedTransData: TransData = // 這是你接收後解碼的 TransData
 
  switch receivedTransData.type {
  case .draw:

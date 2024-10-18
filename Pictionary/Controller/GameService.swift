@@ -108,7 +108,7 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
     nonisolated func didReceivedGuessData(_ guessData: GuessData) {
         DispatchQueue.main.async {
             do {
-                if let status = guessData.isCorrect {// Check answer
+                if let status = guessData.isCorrect {// Response answer
                     
                     self.playCorrectSound(name: Audio.correctSound.rawValue)// play correct sound
                     
@@ -120,8 +120,8 @@ class GameService: ObservableObject, MPConnectingManagerDelegate {
                     if let index = everydayObjects.firstIndex(where: {$0 == self.drawPrompt}) {
                         everydayObjects.remove(at: index)
                     }
-                } else { // Need to send the response to other device
-                    let isCorrect = guessData.message.lowercased() == self.drawPrompt.lowercased()
+                } else { // Check answer / Need to send response to other device
+                    let isCorrect = guessData.message == self.drawPrompt
                     let responseData: GuessData = GuessData(message: guessData.message, isCorrect: isCorrect)
                     
                     if isCorrect {

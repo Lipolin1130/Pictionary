@@ -119,7 +119,7 @@ struct GameView: View {
                 .font(.custom(customFont, size: 35))
                 .foregroundStyle(Color(gameService.mainPlayer.currentlyDrawing ? "primaryYellow": "primaryPurple"))
         }
-    }//TODO: component to another file
+    }
     
     var pastGuesses: some View {
         ScrollView {
@@ -152,7 +152,7 @@ struct GameView: View {
         .cornerRadius(20)
         .padding(.vertical)
         .padding(.bottom, 130)
-    }//TODO: component to another file
+    }
     
     var promptGroup: some View {
         VStack {
@@ -162,9 +162,9 @@ struct GameView: View {
                     .bold()
                     .foregroundColor(.white)
                 
-                Text(gameService.drawPrompt.uppercased())
+                Text(gameService.drawPrompt)
                     .font(.largeTitle)
-                    .bold()
+                    .fontWeight(.heavy)
                     .padding()
                     .foregroundColor(Color("primaryYellow"))
             } else {
