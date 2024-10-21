@@ -25,11 +25,11 @@ class MPConnectionManager: NSObject, ObservableObject {
     let nearbyServiceAdvertiser: MCNearbyServiceAdvertiser
     let nearbyServiceBrowser: MCNearbyServiceBrowser
     
-    @Published var availablePeers = [MCPeerID]()
-    @Published var receivedInvite: Bool = false
-    @Published var receivedInviteFrom: MCPeerID?
-    @Published var invitationHandler: ((Bool, MCSession?) -> Void)?
-    @Published var paired: Bool = false
+    @Published var availablePeers = [MCPeerID]() // 可以連線的對象
+    @Published var receivedInvite: Bool = false // 是否邀請連線
+    @Published var receivedInviteFrom: MCPeerID? // 誰邀請
+    @Published var invitationHandler: ((Bool, MCSession?) -> Void)? //建立連線
+    @Published var paired: Bool = false //是否連線
     
     var isAvailableToPlay: Bool = false {
         didSet {

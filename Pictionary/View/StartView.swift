@@ -3,19 +3,23 @@
 //  Pictionary
 //
 
+// 開始頁面
 
 import SwiftUI
 
 struct StartView: View {
+    
+    //variable
     @EnvironmentObject var gameService: GameService
     @State var connectionManager: MPConnectionManager? = nil
     @AppStorage("yourName") var yourName = ""
     
     @State private var startGame: Bool = false
-    @State private var startSearching: Bool = false
+    @State private var startSearching: Bool = false //
     @State private var tempName: String = ""
     @State private var showSheet: Bool = false
     
+    //View
     var body: some View {
         NavigationStack {
             ZStack {
@@ -46,27 +50,31 @@ struct StartView: View {
                     } else {
                         Spacer()
                         
-                        Text("Buddy\nBattle")
+                        Text("Buddy\nBattle") // \n 換行
                             .font(.custom(customFont, size: 70))
                         
                         HStack {
-                            Image(systemName: "pencil.and.scribble")
+                            Image(systemName: "pencil.and.scribble") // SF symbol
                             Image(systemName: "flag.checkered.2.crossed")
                         }
                         .font(.system(size: 50))
                     }
                     
-                    Spacer()
+                    Spacer() //空白，會推開所有 component
                     
                     Button {
                         withAnimation(.linear(duration: 0.5)) {
                             if !yourName.isEmpty {
                                 startSearching.toggle()
+                                // toggle true -> false Or false -> True
                             } else {
                                 showSheet = true
                             }
                         }
                     } label: {
+                        
+                        // ?: 三元運算式
+                        // Variable(True/False) ? true : false
                         Text(startSearching ? "Cancle" : "Start Game")
                             .fontWeight(.semibold)
                             .font(.custom(customFont, size: 25))

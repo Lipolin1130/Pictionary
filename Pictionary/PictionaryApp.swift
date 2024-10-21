@@ -8,7 +8,7 @@ import SwiftUI
 
 @main
 struct PictionaryApp: App {
-    @AppStorage("yourName") var yourName = ""
+    @AppStorage("yourName") var yourName = "" // apple local disk , not ram
     @StateObject var gameService = GameService()
     
     var body: some Scene {

@@ -20,21 +20,22 @@ class AudioManager {
     var isSoundEffectPlaying: Bool {
         return soundEffectPlayer?.isPlaying ?? false
     }
-    private var backgroundPlaybackPosition: TimeInterval = 0
+    
+    private var backgroundPlaybackPosition: TimeInterval = 0 // 回傳背景播到哪里
     
     private func playSound(named name: String, using player: inout AVAudioPlayer?) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "mp3") else {
             print("Sound file not found")
             return
-        }
+        }// ignore 忽略
         
         do {
             if player == nil || !(player?.isPlaying ?? false) {
                 player = try AVAudioPlayer(contentsOf: url)
-                player?.enableRate = true
-                player?.rate = 1.0
+                player?.enableRate = true // 讓速度可以被調整
+                player?.rate = 1.0 // 速度
                 player?.prepareToPlay()
-                player?.play()
+                player?.play() // 播放
             } else {
                 print("Sound \(name) is already playing")
             }
@@ -43,25 +44,25 @@ class AudioManager {
         }
     }
     
-    func adjustBackgroundSoundRate(to rate: Float) {
+    func adjustBackgroundSoundRate(to rate: Float) {// 調整播放速度
         if let player = backgroundPlayer {
             print("adjustBackgroundSoundRate: \(rate)")
-            player.enableRate = true
-            player.rate = rate
+            player.enableRate = true //here
+            player.rate = rate //here
         } else {
             
         }
     }
     
-    func playBackgroundSound(named name: String) {
+    func playBackgroundSound(named name: String) {//背景音效
         playSound(named: name, using: &backgroundPlayer)
     }
     
-    func playSoundEffect(named name: String) {
+    func playSoundEffect(named name: String) {// 答對音效
         playSound(named: name, using: &soundEffectPlayer)
     }
     
-    func stopBackgroundSound() {
+    func stopBackgroundSound() {// 暫停背景音效
         if let player = backgroundPlayer {
             backgroundPlaybackPosition = player.currentTime
             player.stop()
@@ -69,7 +70,7 @@ class AudioManager {
         }
     }
     
-    func clear() {
+    func clear() {//清除背景紀錄
         backgroundPlaybackPosition = 0
     }
 }

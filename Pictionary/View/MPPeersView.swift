@@ -3,6 +3,7 @@
 //  Pictionary
 //
 
+// 連線頁面
 
 import SwiftUI
 
@@ -32,8 +33,9 @@ struct MPPeersView: View {
                         .font(.largeTitle)
                         .symbolRenderingMode(.hierarchical)
                         .foregroundStyle(.blue)
-                        .symbolEffect(.variableColor.cumulative.dimInactiveLayers.nonReversing)
+                        .symbolEffect(.variableColor.cumulative.dimInactiveLayers.nonReversing)// animation
                 }
+                
                 ForEach(connectionManager.availablePeers, id: \.self) {peer in
                     HStack {
                         
